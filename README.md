@@ -13,24 +13,23 @@ Converting xlsx file to json or csv files using nodejs.
 ```javascript
   XLSXParser = require("xlsx-to-json");
 
-  const jsonResult = new XLSXParser({
-    input: "sample.xlsx",
-    sheet: "sheet1", // specify a target sheet
-  })
-  .xlsx_to_json();
+  const jsonResult = new XLSXParser()
+  .xlsx_to_json(
+    input, // file/blob/base64/string/array/buffer as xlsx to convert to json
+    options // optional things to do (nothing for now)
+  );
 
-  const csvResult = new XLSXParser({
-    input: "sample.xlsx",
-  })
-  .xlsx_to_csv();
+  const csvResult = new XLSXParser()
+  .xlsx_to_csv(
+    input, // file/blob/base64/string/array/buffer as xlsx to convert to json
+    options // optional things to do (nothing for now)
+  );
 
   const {
     result: string, // csv or json formatted string
     error: string, // reason of the failure
   } = jsonResult || csvResult;
 ```
-
-In config object, you have to enter an input path. But If you don't want to output any file you can set to `null`.
 
 ## License
 

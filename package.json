@@ -1,6 +1,6 @@
 {
   "name": "node-xlsx-parser",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Seamless convert xlsx to json with optional option to lowerCase the excel headers \n (Credits rahil471/node-xlsx-json library)",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,9 @@
   "devDependencies": {
     "mocha": "~8.4.0",
     "should": "~13.2.3"
-  }
+  },
+  "keywords": [
+    "xlsx", "node-xlsx", "xlsx2json", "xlsx2csv",  "csv", "xlsx-to-json",
+    "xlsx-to-csv", "converter"
+  ]
 }

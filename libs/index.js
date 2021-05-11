@@ -1,4 +1,5 @@
 const xlsx = require('xlsx');
+const fs = require('fs');
 
 ////////
 
@@ -9,6 +10,12 @@ module.exports = class XLSXParser {
     error: null
   }
 
+  /**
+   * @description Define basic config
+   * for XLSXParser
+   * 
+   * @param {Object} config
+   */
   constructor(config) {
     this._config = {
       ...this._config,
@@ -16,8 +23,14 @@ module.exports = class XLSXParser {
     }
   }
 
-  xlsx_to_csv(file, options) {
-    const _worksheet = this._load_xlsx(file);
+  /**
+   * 
+   * @param {Blob | File | array | string} data 
+   * @param {Object} options 
+   * @returns {string}
+   */
+  xlsx_to_csv(data, options) {
+    const _worksheet = this._load_xlsx(data);
     const csv = xlsx.utils.sheet_to_csv(_worksheet);
     
     if (!csv) {
@@ -33,8 +46,14 @@ module.exports = class XLSXParser {
     }
   }
 
-  xlsx_to_json(file, options) {
-    const _worksheet = this._load_xlsx(file);
+  /**
+   * 
+   * @param {Blob | File | array | string} data 
+   * @param {Object} options 
+   * @returns {any[]}
+   */
+  xlsx_to_json(data, options) {
+    const _worksheet = this._load_xlsx(data);
     const json = xlsx.utils.sheet_to_json(_worksheet, {
       defval: null,
       blankrows: false,
@@ -54,10 +73,14 @@ module.exports = class XLSXParser {
     };
   }
 
-  _load_xlsx(input) {
-    if (!input) throw 'Input file is not defined!';
-
-    const _xlsxFileInfo = xlsx.readFile(input);
+  /**
+   * 
+   * @param {Blob | File | array | string} data 
+   * @returns {import('xlsx').WorkSheet}
+   */
+  _load_xlsx(data) {
+    if (!data) throw 'File is not defined!';
+    const _xlsxFileInfo = xlsx.read(data);
 
     const _pickedWorksheet = this._pickXLSXSheet(_xlsxFileInfo);
     return _pickedWorksheet;
