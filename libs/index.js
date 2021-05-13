@@ -1,5 +1,7 @@
-const xlsx = require('xlsx');
-const fs = require('fs');
+const XLSX = require('xlsx');
+const parser = require('csv-parse/lib/sync');
+const { readFileSync } = require('fs');
+const { getFileContent } = require('./utils/fileResolver');
 
 ////////
 
@@ -31,7 +33,9 @@ module.exports = class XLSXParser {
    */
   xlsx_to_csv(data, options) {
     const _worksheet = this._load_xlsx(data);
-    const csv = xlsx.utils.sheet_to_csv(_worksheet);
+    const csv = XLSX.utils.sheet_to_csv(_worksheet, {
+      ...options
+    });
     
     if (!csv) {
       return {
@@ -54,10 +58,11 @@ module.exports = class XLSXParser {
    */
   xlsx_to_json(data, options) {
     const _worksheet = this._load_xlsx(data);
-    const json = xlsx.utils.sheet_to_json(_worksheet, {
+    const json = XLSX.utils.sheet_to_json(_worksheet, {
       defval: null,
       blankrows: false,
-      raw: false
+      raw: false,
+      ...options
     });
     
     if (!json) {
@@ -73,6 +78,29 @@ module.exports = class XLSXParser {
     };
   }
 
+  csv_to_json(file, options) {
+    if (!file) throw 'File is not defined!';
+
+    let fileContent = getFileContent(file);
+
+    if (!fileContent) return {
+      ...this._defaultOutput,
+      error: "Provide path to file or File object",
+    }
+    
+    const records = parser(fileContent, {columns: true, ...options});
+
+    if (!records) return {
+      ...this._defaultOutput,
+      error: "Failed to parse CSV",
+    }
+
+    return {
+      result: records,
+      error: null
+    }
+  }
+
   /**
    * 
    * @param {Blob | File | array | string} data 
@@ -80,7 +108,7 @@ module.exports = class XLSXParser {
    */
   _load_xlsx(data) {
     if (!data) throw 'File is not defined!';
-    const _xlsxFileInfo = xlsx.read(data);
+    const _xlsxFileInfo = XLSX.read(data);
 
     const _pickedWorksheet = this._pickXLSXSheet(_xlsxFileInfo);
     return _pickedWorksheet;
