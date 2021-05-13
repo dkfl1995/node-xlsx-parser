@@ -1,12 +1,20 @@
 # node-xlsx-parser
 
-Converting xlsx file to json or csv files using nodejs. 
+Converting xlsx file to json or csv files using nodejs.
+Long story short, our commercial project needed lightweight, 
+pretty simple and up-to-date tool for converting btw XLSX/CSV/JSON.
+So, came here to share it with you guys.
 
 ## Install
-
+### NPM
 ```
   npm install node-xlsx-parser
 ```
+### Yarn
+```
+  yarn add node-xlsx-parser
+```
+
 
 ## Usage
 
@@ -37,8 +45,12 @@ Converting xlsx file to json or csv files using nodejs.
   } = jsonFromXLSX || csvFromXLSX || jsonFromCSV;
 ```
 
+## Thoughts
+
+Feel free guys, to share you PRs to `develop` branch with some proposals. I will greetely review all of them as soon as I can for sure)
+
 ## License
 
-MIT [@chilijung](http://github.com/chilijung)
+MIT [@dkfl1995](http://github.com/dkfl1995)
 
 
