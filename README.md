@@ -21,22 +21,28 @@ So, came here to share it with you guys.
 ```javascript
   XLSXParser = require("xlsx-to-json");
 
-  const jsonResult = new XLSXParser()
+  const jsonFromXLSX = new XLSXParser()
   .xlsx_to_json(
     input, // file/blob/base64/string/array/buffer as xlsx to convert to json
-    options // optional things to do (options will be added soon)
+    options // options from require('xlsx').xlsx_to_json()
   );
 
-  const csvResult = new XLSXParser()
+  const csvFromXLSX = new XLSXParser()
   .xlsx_to_csv(
     input, // file/blob/base64/string/array/buffer as xlsx to convert to json
-    options // optional things to do (options will be added soon)
+    options // options from require('xlsx').xlsx_to_csv()
+  );
+
+  const jsonFromCSV = new XLSXParser()
+  .csv_to_json(
+    input, // file/blob/path as xlsx to convert to json
+    options // options from require('xlsx').xlsx_to_csv()
   );
 
   const {
     result: string, // csv or json formatted string
     error: string, // reason of the failure
-  } = jsonResult || csvResult;
+  } = jsonFromXLSX || csvFromXLSX || jsonFromCSV;
 ```
 
 ## Thoughts
