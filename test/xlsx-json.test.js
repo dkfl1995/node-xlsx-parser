@@ -1,6 +1,5 @@
 var should = require('should');
 var XLSXParser = require('../');
-var fs = require('fs')
 
 describe('xlsx to json', function() {
 
@@ -17,4 +16,5 @@ describe('xlsx to json', function() {
 		result.should.be.an.instanceOf(Object);
 	});
 
+	
 })

@@ -39,6 +39,12 @@ So, came here to share it with you guys.
     options // options from require('xlsx').xlsx_to_csv()
   );
 
+  const CSVFromJSON = new XLSXParser()
+  .json_to_csv(
+    input, // JSON/JSONB file with object for translate to CSV
+    options // options from require('xlsx').json_to_csv()
+  )
+
   const {
     result: string, // csv or json formatted string
     error: string, // reason of the failure

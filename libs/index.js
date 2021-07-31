@@ -78,6 +78,12 @@ module.exports = class XLSXParser {
     };
   }
 
+  /**
+   * 
+   * @param {*} file 
+   * @param {*} options 
+   * @returns 
+   */
   csv_to_json(file, options) {
     if (!file) throw 'File is not defined!';
 
@@ -99,6 +105,22 @@ module.exports = class XLSXParser {
       result: records,
       error: null
     }
+  }
+
+  /**
+   * 
+   * @param {string} json 
+   * @param {
+   *  {
+   *    sheetOptions: XLSX.JSON2SheetOpts, 
+   *    csvOptions: XLSX.Sheet2CSVOpts
+   *  }
+   * } options 
+   */
+  json_to_csv(json, options) {
+    const _worksheet = XLSX.utils.json_to_sheet(json, options);
+
+    const csv = XLSX.utils.sheet_to_csv(_worksheet)
   }
 
   /**
